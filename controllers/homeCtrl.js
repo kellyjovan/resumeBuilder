@@ -1,10 +1,10 @@
 var express     = require('express'),
     router      = express.Router(),
-    User        = require('../models/user.js');
+    Account        = require('../models/account.js');
 
 router.get('/', function(req, res){
-    User.find({}, function(err, users){
-        console.log(users);
+    Account.find({}, function(err, accounts){
+        console.log(accounts);
         res.render('index',{
             page: 'home',
             nav_btns: []
@@ -13,19 +13,19 @@ router.get('/', function(req, res){
 });
 
 router.post('/signUp', function(req, res){
-    var newUserData = req.body;
-    console.log(newUserData);
-    var newUser = new User({
-        email: newUserData.email,
-        password: newUserData.password
+    var newAccountData = req.body;
+    console.log(newAccountData);
+    var newAccount = new Account({
+        email: newAccountData.email,
+        password: newAccountData.password
     });
 
-    newUser.save(function(err){
+    newAccount.save(function(err){
         if(err) throw err;
-        console.log('User Created!');
+        console.log('Account Created!');
     });
 
-    res.redirect('/' + newUser._id +'/SignUp');
+    res.redirect('/' + newAccount._id +'/SignUp');
 })
 
 module.exports = router;

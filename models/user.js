@@ -1,25 +1,15 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    ObjectId = mongoose.Schema.Types.ObjectId;
 
 var userSchema = new Schema({
-    email:          {type: String, required: true},
-    password:       {type: String, required: true},
-    first_name:     String,
-    last_name:      String,
-    created_at:     Date,
-    updated_at:     Date,
-    skills:         [String],
-    experience:     [{
-                        job_title:          String,
-                        company:            String,
-                        job_description:    String,
-                        start_date:         Date,
-                        end_date:           Date,
-                        location:           String
-                    }],
-    job_interests: [String],
-    full_time:     Boolean
-});
+    first_name: String,
+    middle_init: String,
+    last_name: String,
+    created_at: Date,
+    updated_at: Date,
+    account_id: {type: ObjectId, ref: 'account'}
+})
 
 userSchema.pre('save', function(next){
     var currentDate = new Date();
