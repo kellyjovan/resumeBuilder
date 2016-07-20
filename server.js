@@ -1,17 +1,17 @@
-var express        = require('express'),
-    app            = express(),
-    port           = process.env.PORT || 8080,
-    mongoose       = require('mongoose'),
-    bodyParser     = require('body-parser'),
+var express = require('express'),
+    app = express(),
+    port = process.env.PORT || 8080,
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
-    database    = require('./config/database.js'),
-    morgan         = require('morgan');
+    database = require('./config/database.js'),
+    morgan = require('morgan');
 
 mongoose.connect(database.url, function(err, res){
     if(err){ console.log('Error Connecting to:' + database.url + "\n" + err);}
     else{console.log('Connection Successful');}
     //Drops Database
-    // mongoose.connection.db.dropDatabase();
+    //mongoose.connection.db.dropDatabase();
 });
 
 app.set('views', __dirname + '/views/');

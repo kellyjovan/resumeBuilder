@@ -2,83 +2,72 @@ var express = require('express'),
     router = express.Router(),
     User = require('../models/user.js'),
     Experience = require('../models/experience.js'),
-    Education = require('../models/education.js');
+    Education = require('../models/education.js'),
+    Volunteer = require('../models/volunteer.js'),
+    dbFunctions = require('../controllers/dbFunctions.js');
 
 router.get('/:id/Profile', function(req, res){
-    // res.render('profile');
 
-    // var userData, experienceData;
-    //
-    // User.find({_id: req.params.id}, function(err, user){
-    //     userData = user[0];
-    // }).then(Experience.find({profile_id: req.params.id}, function(err, experience){
-    //     experienceData = experience;
-    // })).then(function(){
-    //     console.log("User: ", userData, "Experience: ", experienceData);
-    // });
-    //
-    // res.render('profile', {
-    //     user: userData,
-    //     experience: experienceData,
-    //     page: 'profile',
-    //     nav_btns: ['Profile']
-    // });
+    var o = {edu: [],vol: [],exp: [],usr: {}};
 
     console.log(req.params.id);
     User.find({_id: req.params.id}, function(err, user){
         if(err) throw err;
-        getEducation(user[0]);
+        o.usr = user[0];
+        getEducation();
     });
 
-    function getEducation(userResult){
+    function getEducation(){
         Education.find({profile_id: req.params.id}, function(err, edu){
             if(err) throw err;
-            console.log(edu);
-            getExperience(userResult, edu);
+            o.edu = edu;
+            getVolunteerExperience();
         });
     };
 
-    function getExperience(userResult, eduResult){
+    function getVolunteerExperience(){
+        Volunteer.find({profile_id: req.params.id}, function(err, vol){
+            if(err) throw err;
+            o.vol = vol;
+            getExperience();
+        });
+    };
+
+    function getExperience(userResult, eduResult, volResult){
         Experience.find({profile_id: req.params.id}, function(err, exp){
+            o.exp = exp;
             res.render('profile', {
-                user: userResult,
-                education: eduResult,
-                experience: exp,
                 page: 'profile',
-                nav_btns: ['Profile']
+                results: o
             });
+            //res.send({result: o});
         })
     }
 });
 
 router.post('/:id/editPage', function(req, res){
     res.redirect('/' + req.params.id + '/edit');
+    //Remember to include ._id as an hidden field to get user_id
 });
 
 router.post('/:id/addExperience', function(req, res){
-    var experienceData = req.body;
-    var newExperience = new Experience({
-        company_name: experienceData.company_name,
-        job_position: experienceData.job_position,
-        job_description: experienceData.job_description,
-        profile_id: experienceData.id
-    });
-    newExperience.save(function(err){if(err)throw err; console.log('User Experience Added.')});
-
+    //res.send(dbFunctions.addExperience(req.body));
+    //Remember to include ._id as an hidden field to get user_id
+    dbFunctions.addExperience(req.body);
     res.redirect('/' + req.params.id + '/Profile');
 });
 
 router.post('/:id/addEducation', function(req, res){
-    var educationData = req.body;
-    console.log(educationData);
-    var newEducation = new Education({
-        name_of_institution: educationData.name_of_institution,
-        degree: educationData.degree,
-        field_of_study: educationData.field_of_study,
-        profile_id: educationData.id
-    });
-    newEducation.save(function(err){if(err)throw err; console.log('User Education Added.')});
+    // res.send(dbFunctions.addEducation(req.body));
+    //Remember to include ._id as an hidden field to get user_id
+    dbFunctions.addEducation(req.body);
+    res.redirect('/' + req.params.id + '/Profile');
+});
 
+router.post('/:id/addVolunteerExp', function(req, res){
+    // res.send(dbFunctions.addVolunteer(req.body));
+    //Remember to include ._id as an hidden field to get user_id
+    dbFunctions.addVolunteerExp(req.body);
     res.redirect('/' + req.params.id + '/Profile');
 });
 

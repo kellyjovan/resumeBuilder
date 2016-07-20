@@ -3,19 +3,21 @@
     <br><br><br>
 
     <div class="col-lg-3" style="position: absolute; left: 0; top: 100px; background-color: rgba(0,0,0,.9); height: 100px">
-        <center><h1 style="color: white"><%- user.first_name %> <%- user.last_name %></h1></center>
-        <center><p style="color: white"><%- user.email %></p></center>
+        <center><h1 style="color: white"><%- results.usr.first_name %> <%- results.usr.last_name %></h1></center>
+        <center><p style="color: white"><%- results.usr.email %></p></center>
     </div>
+
+    <%- console.log(results) %>
 
     <div class="container">
         <br><br><br><br><br><br>
         <center><h2>Experience</h2></center>
-        <% for(var i = 0; i < experience.length; i++){%>
+        <% for(var i = 0; i < results.exp.length; i++){%>
         <div class="row">
-            <h3><%- experience[i].job_position %></h3>
-            <h4><%- experience[i].company_name %></h4>
+            <h3><%- results.exp[i].job_position %></h3>
+            <h4><%- results.exp[i].company_name %></h4>
             <em><p>Start Date - End Date</p></em>
-            <p><%- experience[i].job_description %></p>
+            <p><%- results.exp[i].job_description %></p>
         </div>
         <%}%>
         <div class="btn btn-primary expBtn">
@@ -35,7 +37,7 @@
             <label>job description</label>
             <textarea type="text" class="form-control" name="job_description" placeholder="Password"></textarea>
           </div>
-          <input type="hidden" name="id" value="<%= user._id %>">
+          <input type="hidden" name="usr_id" value="<%= results.usr._id %>">
           <div class="row">
               <div class="col-lg-12">
                   <button type="submit" class="btn btn-primary">Submit</button>
@@ -44,11 +46,11 @@
         </form>
 
         <center><h2>Education</h2></center>
-        <% for(var i = 0; i < education.length; i++){%>
+        <% for(var i = 0; i < results.edu.length; i++){%>
         <div class="row">
-            <h3><%- education[i].name_of_institution %></h3>
-            <h4><%- education[i].degree %></h4>
-            <em><p><%- education[i].field_of_study %></p></em>
+            <h3><%- results.edu[i].name_of_institution %></h3>
+            <h4><%- results.edu[i].degree %></h4>
+            <em><p><%- results.edu[i].field_of_study %></p></em>
         </div>
         <%}%>
         <div class="btn btn-primary eduBtn">
@@ -68,7 +70,40 @@
             <label>field of study</label>
             <input type="text" class="form-control" name="field_of_study" placeholder="Field of Study">
           </div>
-          <input type="hidden" name="id" value="<%= user._id %>">
+          <input type="hidden" name="usr_id" value="<%= results.usr._id %>">
+          <div class="row">
+              <div class="col-lg-12">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+          </div>
+        </form>
+
+        <center><h2>Volunteer</h2></center>
+        <% for(var i = 0; i < results.vol.length; i++){%>
+        <div class="row">
+            <h3><%- results.vol[i].organization %></h3>
+            <h4><%- results.vol[i].role %></h4>
+            <em><p><%- results.vol[i].cause %></p></em>
+        </div>
+        <%}%>
+        <div class="btn btn-primary volBtn">
+            Add a Volunteer Experience
+        </div>
+
+        <form method="POST" action="addVolunteerExp" class="volForm">
+            <div class="form-group">
+              <label>Organization</label>
+              <input type="text" class="form-control" name="organization" placeholder="Name of Organization">
+            </div>
+          <div class="form-group">
+            <label>Role</label>
+            <input type="text" class="form-control" name="role" placeholder="Role">
+          </div>
+          <div class="form-group">
+            <label>Cause</label>
+            <input type="text" class="form-control" name="cause" placeholder="Cause">
+          </div>
+          <input type="hidden" name="usr_id" value="<%= results.usr._id %>">
           <div class="row">
               <div class="col-lg-12">
                   <button type="submit" class="btn btn-primary">Submit</button>

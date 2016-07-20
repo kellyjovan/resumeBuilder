@@ -9,12 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "",
-    "morgan": "",
     "body-parser": "",
+    "ejs": "",
+    "express": "",
     "method-override": "",
+    "moment": "^2.14.1",
     "mongoose": "",
-    "ejs": ""
+    "morgan": ""
   },
   "devDependencies": {},
   "description": ""

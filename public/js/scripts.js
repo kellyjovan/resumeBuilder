@@ -13,4 +13,11 @@ $(document).ready(function(){
 
     $('.eduForm').hide();
 
+    $('.volBtn').click(function(){
+        $('.volForm').show();
+        $(this).hide();
+    });
+
+    $('.volForm').hide();
+
 });
