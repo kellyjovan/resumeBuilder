@@ -45,29 +45,38 @@ router.get('/:id/Profile', function(req, res){
     }
 });
 
-router.post('/:id/editPage', function(req, res){
-    res.redirect('/' + req.params.id + '/edit');
-    //Remember to include ._id as an hidden field to get user_id
-});
-
+//Add/Remove Routes for User Experience
 router.post('/:id/addExperience', function(req, res){
     //res.send(dbFunctions.addExperience(req.body));
     //Remember to include ._id as an hidden field to get user_id
     dbFunctions.addExperience(req.body);
     res.redirect('/' + req.params.id + '/Profile');
 });
-
+router.post('/:id/removeExperience', function(req, res){
+    console.log(req.body.exp_id);
+    dbFunctions.removeExperience(req.body.exp_id);
+    res.redirect('/' + req.params.id + '/Profile');
+});
+//Add/Remove Routes for Education
 router.post('/:id/addEducation', function(req, res){
     // res.send(dbFunctions.addEducation(req.body));
     //Remember to include ._id as an hidden field to get user_id
     dbFunctions.addEducation(req.body);
     res.redirect('/' + req.params.id + '/Profile');
 });
-
+router.post('/:id/removeEducation', function(req, res){
+    dbFunctions.removeEducation(req.body.edu_id)
+    res.redirect('/' + req.params.id + '/Profile');
+});
+//Add/Remove Routes for Volunteer Experience
 router.post('/:id/addVolunteerExp', function(req, res){
     // res.send(dbFunctions.addVolunteer(req.body));
     //Remember to include ._id as an hidden field to get user_id
     dbFunctions.addVolunteerExp(req.body);
+    res.redirect('/' + req.params.id + '/Profile');
+});
+router.post('/:id/removeVolunteerExp', function(req, res){
+    dbFunctions.removeVolunteerExp(req.body.vol_id);
     res.redirect('/' + req.params.id + '/Profile');
 });
 

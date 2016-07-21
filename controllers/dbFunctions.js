@@ -22,6 +22,7 @@ dbFunctions.decrypt = function(text){
     dec += decipher.final('utf8');
     return dec;
 }
+//Add Functions
 dbFunctions.addAccount = function(data){
     var newAccount = new Account({
         email: data.email,
@@ -48,7 +49,9 @@ dbFunctions.addExperience = function(data){
         job_position: data.job_position,
         job_description: data.job_description,
         company_name: data.company_name,
-        profile_id: data.usr_id
+        profile_id: data.usr_id,
+        start_date: data.start_date,
+        end_date: data.end_date
     });
     console.log(newExperience);
     newExperience.save(function(err){if(err)throw err; console.log('User Experience Added.')});
@@ -73,5 +76,38 @@ dbFunctions.addVolunteerExp = function(data){
         profile_id: data.usr_id
     });
     newVolunteer.save(function(err){if(err)throw err; console.log('User Volunteer Added.')});
+}
+//Remove Functions
+dbFunctions.removeExperience = function(exp_id){
+    Experience.find({_id: exp_id}, function(err, exp){
+        if(err) throw err;
+        console.log(exp);
+        exp = exp[0];
+        console.log(exp);
+        exp.remove(function(err){
+            if(err) throw err;
+            console.log('User Experience Removed!');
+        });
+    });
+};
+dbFunctions.removeEducation = function(edu_id){
+    Education.find({_id: edu_id}, function(err, edu){
+        if(err) throw err;
+        edu = edu[0];
+        edu.remove(function(err){
+            if(err) throw err;
+            console.log('User Education Removed!');
+        });
+    });
+};
+dbFunctions.removeVolunteerExp = function(vol_id){
+    Volunteer.find({_id: vol_id}, function(err, vol){
+        if(err) throw err;
+        vol = vol[0];
+        vol.remove(function(err){
+            if(err) throw err;
+            console.log('User Volunteer Experience Removed!');
+        })
+    })
 }
 module.exports = dbFunctions;

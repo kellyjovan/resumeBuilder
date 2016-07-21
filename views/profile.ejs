@@ -2,24 +2,37 @@
 
     <br><br><br>
 
-    <div class="col-lg-3" style="position: absolute; left: 0; top: 100px; background-color: rgba(0,0,0,.9); height: 100px">
+    <!-- <div class="col-lg-3" style="position: absolute; left: 0; top: 100px; background-color: rgba(0,0,0,.9); height: 100px">
         <center><h1 style="color: white"><%- results.usr.first_name %> <%- results.usr.last_name %></h1></center>
         <center><p style="color: white"><%- results.usr.email %></p></center>
-    </div>
-
-    <%- console.log(results) %>
+    </div> -->
 
     <div class="container">
         <br><br><br><br><br><br>
-        <center><h2>Experience</h2></center>
+        <div class="page-header">
+          <h1>Experience</h1>
+        </div>
+        <!-- <center><h2>Experience</h2></center> -->
         <% for(var i = 0; i < results.exp.length; i++){%>
-        <div class="row">
+        <!-- <div class="row">
             <h3><%- results.exp[i].job_position %></h3>
             <h4><%- results.exp[i].company_name %></h4>
             <em><p>Start Date - End Date</p></em>
             <p><%- results.exp[i].job_description %></p>
+        </div> -->
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h3><%- results.exp[i].job_position %></h3>
+            <form method="POST" action="removeExperience">
+                <input type="hidden" name="exp_id" value="<%= results.exp[i]._id %>"/>
+                <button class="btn btn-danger" type="submit"> Remove </button>
+            </form>
+          </div>
         </div>
+
         <%}%>
+
         <div class="btn btn-primary expBtn">
             Add an Experience
         </div>
@@ -37,6 +50,19 @@
             <label>job description</label>
             <textarea type="text" class="form-control" name="job_description" placeholder="Password"></textarea>
           </div>
+          <div class="form-group">
+              <!-- <div class="col-lg-12"> -->
+                 <label>Start - End Date</label>
+            <!-- </div> -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="start_date">
+                </div>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="end_date">
+                </div>
+            </div>
+          </div>
           <input type="hidden" name="usr_id" value="<%= results.usr._id %>">
           <div class="row">
               <div class="col-lg-12">
@@ -45,13 +71,28 @@
           </div>
         </form>
 
-        <center><h2>Education</h2></center>
+        <div class="page-header">
+          <h1>Education</h1>
+        </div>
+
+        <!-- <center><h2>Education</h2></center> -->
         <% for(var i = 0; i < results.edu.length; i++){%>
-        <div class="row">
+        <!-- <div class="row">
             <h3><%- results.edu[i].name_of_institution %></h3>
             <h4><%- results.edu[i].degree %></h4>
             <em><p><%- results.edu[i].field_of_study %></p></em>
-        </div>
+        </div> -->
+
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h3><%- results.edu[i].name_of_institution %></h3>
+                <form method="POST" action="removeEducation">
+                    <input type="hidden" name="edu_id" value="<%= results.edu[i]._id %>"/>
+                    <button class="btn btn-danger" type="submit"> Remove </button>
+                </form>
+              </div>
+            </div>
+
         <%}%>
         <div class="btn btn-primary eduBtn">
             Add an Education
@@ -67,6 +108,10 @@
             <input type="text" class="form-control" name="degree" placeholder="Degree">
           </div>
           <div class="form-group">
+            <label>year graduated</label>
+            <input type="number" class="form-control" name="year_graduated" placeholder="1990">
+          </div>
+          <div class="form-group">
             <label>field of study</label>
             <input type="text" class="form-control" name="field_of_study" placeholder="Field of Study">
           </div>
@@ -78,13 +123,27 @@
           </div>
         </form>
 
-        <center><h2>Volunteer</h2></center>
+        <div class="page-header">
+          <h1>Organization</h1>
+        </div>
+
         <% for(var i = 0; i < results.vol.length; i++){%>
-        <div class="row">
+        <!-- <div class="row">
             <h3><%- results.vol[i].organization %></h3>
             <h4><%- results.vol[i].role %></h4>
             <em><p><%- results.vol[i].cause %></p></em>
-        </div>
+        </div> -->
+
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h3><%- results.vol[i].organization %></h3>
+                <form method="POST" action="removeVolunteerExp">
+                    <input type="hidden" name="vol_id" value="<%= results.vol[i]._id %>"/>
+                    <button class="btn btn-danger" type="submit"> Remove </button>
+                </form>
+              </div>
+            </div>
+
         <%}%>
         <div class="btn btn-primary volBtn">
             Add a Volunteer Experience
