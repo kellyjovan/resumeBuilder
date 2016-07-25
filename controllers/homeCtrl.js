@@ -1,14 +1,14 @@
 var express = require('express'),
     router = express.Router(),
     Account = require('../models/account.js'),
-    dbFunctions = require('../controllers/dbFunctions.js');
+    dbFunctions = require('../controllers/dbFunctions.js'),
+    passport = require('passport');
 
 router.get('/', function(req, res){
     Account.find({}, function(err, accounts){
         console.log(accounts);
         res.render('index',{
-            page: 'home',
-            nav_btns: []
+            page: 'home'
         });
     });
 });

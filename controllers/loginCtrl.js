@@ -1,7 +1,8 @@
 var express = require('express'),
     router = express.Router(),
     Account = require('../models/account.js'),
-    User = require('../models/user.js');
+    User = require('../models/user.js'),
+    passport = require('passport');
 
 router.get('/login', function(req, res){
     res.render('login',{
